@@ -28,7 +28,7 @@ void file_type(char *filename)
 int main(int argc, char **argv)
 {
     // TODO: Check that the number of arguments is equal to 2, exit otherwise.
-    file_type("/home/charles.zhang/afs");
-    file_type("/home/charles.zhang/afs/unix/unix/io_skeleton/file_type.c");    
+    if (argc == 2)
+        file_type(argv[1]);
     return 0;
 }
