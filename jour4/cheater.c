@@ -8,6 +8,20 @@ int execute(char executable[], int P[2])
     // correct ends of pipe)
     // - In one of the processes, execute the given game (using execvp)
     // - Return the PID of the process created
+    pipe(P);
+    if (fork())
+    {
+        int r;
+        char buf[256];
+        while ((r= read(P[0], buf, 256)))
+        {
+            dup(P[0]);
+            close(P[0]);
+        }
+        return execvp(executable, buf);
+
+    }
+
     return 0;
 }
 
@@ -19,7 +33,6 @@ int my_strcmp(const char ref_signal[], const char target_signal[])
 
 int string_to_signal(char signal[])
 {
-    // TODO:
     // - Loop through the signals, if string matches, return the number of the
     // signal (signal_nb = index + 1)
     int index = 0;
@@ -35,10 +48,16 @@ int string_to_signal(char signal[])
 
 void read_until(int fd, char buf[], size_t buf_size, char delim)
 {
-    // TODO:
     // - Read from fd into buffer character by character until buffer is filled
     // (error in this case) or the last read character is delim
     // - Don't forget to null terminate the buffer at the correct place
+    ssize_t r;
+    for (size_t i = 0; i < buf_size; i ++)
+    {
+        read(fd, buf[i], buf_size);
+        if (i == buf_size-1 && buf[i] == delim)
+            errx(1, "Error, your last character is %c", delim);
+    }
 }
 
 int main(int argc, char *argv[])
