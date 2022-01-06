@@ -53,6 +53,7 @@ int main(int argc, char **argv)
 {
     // Check that the number of arguments given is equal to 2, exit otherwise.
     // Call parrot with the correct argument.
-    parrot("/home/charles.zhang/afs/unix/unix/io_skeleton/hello");
+    if (argc == 2)
+        parrot(argv[1]);
     return 0;
 }
