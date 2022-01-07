@@ -70,8 +70,8 @@ int main(int argc, char *argv[])
     // Execute the game and get PID to be able to send the signals
 
     // Initialize buffer of size BUFF_SIZE
-    printf("%d", string_to_signal(argv[1]));
-    printf("\n");
+    char buf[256];
+    
 
     for (size_t i = 0; i < 100; i++)
     {
